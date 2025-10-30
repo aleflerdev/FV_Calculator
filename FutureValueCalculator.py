@@ -11,17 +11,17 @@ def future_value(principal, annual_rate, years, monthly_deposit=0, compounds_per
     n = float(compounds_per_year)
     t = float(years)
 
-    # FV of principal (compound growth)
-    fv_principal = float(principal) * (1 + r / n) ** (n * t)
-    # FV of monthly deposits (ordinary annuity formula)
-    fv_deposits = float(monthly_deposit) * (((1 + r / n) ** (n * t) - 1) / (r / n))
-
     # Handle the zero-interest-rate special case to avoid division-by-zero.
     # When r == 0: principal does not grow, and deposits sum linearly: monthly * n * t
     if r == 0:
         fv_principal = float(principal)
         fv_deposits = float(monthly_deposit) * n * t
         return fv_principal + fv_deposits
+
+    # FV of principal (compound growth)
+    fv_principal = float(principal) * (1 + r / n) ** (n * t)
+    # FV of monthly deposits (ordinary annuity formula)
+    fv_deposits = float(monthly_deposit) * (((1 + r / n) ** (n * t) - 1) / (r / n))
 
     # FV total
     fv_total = fv_principal + fv_deposits
